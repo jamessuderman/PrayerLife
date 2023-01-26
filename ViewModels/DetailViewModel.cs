@@ -1,6 +1,4 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
-
-namespace PrayerLife.ViewModels;
+﻿namespace PrayerLife.ViewModels;
 
 [QueryProperty("Text", "Text")]
 

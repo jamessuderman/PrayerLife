@@ -16,10 +16,16 @@ public static class MauiProgram
                 fonts.AddFont("FiraSans-Thin.ttf", "FiraThin");
             });
 
+        // Views
         builder.Services.AddSingleton<MainPage>();
-        builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddTransient<DetailPage>();
+        
+        // ViewModels
+        builder.Services.AddSingleton<MainViewModel>();
         builder.Services.AddTransient<DetailViewModel>();
+
+        // Services
+        builder.Services.AddSingleton<IRequestService, RequestService>();
 
 #if DEBUG
         builder.Logging.AddDebug();

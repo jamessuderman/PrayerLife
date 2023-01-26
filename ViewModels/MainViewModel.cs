@@ -1,36 +1,64 @@
-﻿using System.Collections.ObjectModel;
-using CommunityToolkit.Mvvm.ComponentModel;
-using CommunityToolkit.Mvvm.Input;
-
-namespace PrayerLife.ViewModels;
+﻿namespace PrayerLife.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
-    public MainViewModel()
+    private readonly IRequestService _requestService;
+
+    public MainViewModel(IRequestService requestService)
     {
-        Items = new ObservableCollection<string>();
+        _requestService = requestService;
+        Requests = new ObservableCollection<Request>();
     }
 
     [ObservableProperty]
-    ObservableCollection<string> items;
+    ObservableCollection<Request> requests;
 
     [ObservableProperty]
     string entryText;
 
     [RelayCommand]
-    void Add()
+    async void Add()
     {
         if (string.IsNullOrWhiteSpace(EntryText))
             return;
 
-        Items.Add(EntryText);
+        Request newRequest = new Request() {
+            Body = EntryText
+        };
+
+        var response = await _requestService.AddRequest(newRequest);
+
+        if (response > 0) {
+            GetRequests();
+        } else {
+            await Shell.Current.DisplayAlert("Request Error", "An error occured while saving to databaase", "OK");
+        }
+
         EntryText = string.Empty;
     }
 
     [RelayCommand]
-    async Task Tap(string s)
+    async Task Tap(Request request)
     {
-        await Shell.Current.GoToAsync($"{nameof(DetailPage)}?Text={s}");
+        var response = await _requestService.DeleteRequest(request);
+
+        if(response > 0) {
+            GetRequests();
+        } else {
+            await Shell.Current.DisplayAlert("Request Error", "An error occured while deleting from the database", "OK");
+        }
+    }
+
+    public async void GetRequests() {
+        var requests = await _requestService.GetRequests();
+
+        if (requests?.Count > 0) {
+            Requests.Clear();
+            foreach(var request in requests) {
+                Requests.Add(request);
+            }
+        }
+
     }
 }
 

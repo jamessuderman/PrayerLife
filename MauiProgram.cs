@@ -18,14 +18,12 @@ public static class MauiProgram
 
         // Views
         builder.Services.AddSingleton<MainPage>();
-        builder.Services.AddTransient<DetailPage>();
         
         // ViewModels
         builder.Services.AddSingleton<MainViewModel>();
-        builder.Services.AddTransient<DetailViewModel>();
 
         // Services
-        builder.Services.AddSingleton<IRequestService, RequestService>();
+        builder.Services.AddSingleton<RequestService>();
 
 #if DEBUG
         builder.Logging.AddDebug();

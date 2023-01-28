@@ -2,9 +2,9 @@
 
 public partial class MainViewModel : ObservableObject
 {
-    private readonly IRequestService _requestService;
+    private readonly RequestService _requestService;
 
-    public MainViewModel(IRequestService requestService)
+    public MainViewModel(RequestService requestService)
     {
         _requestService = requestService;
         Requests = new ObservableCollection<Request>();
@@ -23,7 +23,8 @@ public partial class MainViewModel : ObservableObject
             return;
 
         Request newRequest = new Request() {
-            Body = EntryText
+            Body = EntryText,
+            DateInserted = DateTime.Now
         };
 
         var response = await _requestService.AddRequest(newRequest);
@@ -52,8 +53,9 @@ public partial class MainViewModel : ObservableObject
     public async void GetRequests() {
         var requests = await _requestService.GetRequests();
 
+        Requests.Clear();
+
         if (requests?.Count > 0) {
-            Requests.Clear();
             foreach(var request in requests) {
                 Requests.Add(request);
             }

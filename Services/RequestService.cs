@@ -1,6 +1,6 @@
 ﻿namespace PrayerLife.Services;
 
-public class RequestService : IRequestService
+public class RequestService
 {
     public SQLiteAsyncConnection _dbConnection;
 

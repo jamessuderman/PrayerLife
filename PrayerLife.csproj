@@ -14,7 +14,7 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 
 		<!-- Display name -->
-		<ApplicationTitle>PrayerLife</ApplicationTitle>
+		<ApplicationTitle>Prayer Life</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.prayerlife</ApplicationId>
@@ -70,16 +70,30 @@
 	  <None Remove="SQLitePCLRaw.core" />
 	  <None Remove="SQLitePCLRaw.lib.e_sqlite3" />
 	  <None Remove="SQLitePCLRaw.provider.dynamic_cdecl" />
+	  <None Remove="Exceptions\" />
+	  <None Remove="Helpers\" />
+	  <None Remove="Views\" />
+	  <None Remove="Resources\Images\trash-alt.svg" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="ViewModels\" />
 	  <Folder Include="Models\" />
 	  <Folder Include="Models\" />
 	  <Folder Include="Services\" />
+	  <Folder Include="Exceptions\" />
+	  <Folder Include="Helpers\" />
+	  <Folder Include="Views\" />
 	</ItemGroup>
 	<ItemGroup>
-	  <MauiXaml Update="DetailPage.xaml">
+	  <MauiXaml Update="Views\ErrorIndicator.xaml">
 	    <SubType></SubType>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\LoadingIndicator.xaml">
+	    <SubType></SubType>
+	  </MauiXaml>
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\Images\trash_alt.svg" />
+	  <BundleResource Include="Resources\Images\*" />
 	</ItemGroup>
 </Project>
